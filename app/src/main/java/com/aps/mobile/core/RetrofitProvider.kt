@@ -5,9 +5,13 @@ import com.aps.mobile.R
 import com.aps.mobile.security.interceptors.BasicAuthenticationInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
+
 
 /**
  * The provider is a singleton
@@ -38,6 +42,7 @@ object RetrofitProvider {
                         .baseUrl(context.resources.getString(R.string.api_server_staging))
                         .client(client!!)
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(NullOnEmptyConverterFactory())
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build()
 
@@ -71,5 +76,21 @@ object RetrofitProvider {
                 )
             )
             .build()
+    }
+}
+
+class NullOnEmptyConverterFactory : Converter.Factory() {
+    override fun responseBodyConverter(
+        type: Type,
+        annotations: Array<Annotation?>,
+        retrofit: Retrofit
+    ): Converter<ResponseBody, *> {
+        val delegate: Converter<ResponseBody, *> =
+            retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
+        return Converter<ResponseBody, Any> { body ->
+            if (body.contentLength() == 0L) {
+                null
+            } else delegate.convert(body)
+        }
     }
 }
