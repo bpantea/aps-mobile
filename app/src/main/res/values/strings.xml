@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Automated Puzzle Solver</string>
+    <string name="preference_file_key">com.aps.mobile.PREFERENCES</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="logout">Log out</string>
+</resources>

@@ -1,0 +1,2 @@
+rootProject.name='Automated Puzzle Solver'
+include ':app'
