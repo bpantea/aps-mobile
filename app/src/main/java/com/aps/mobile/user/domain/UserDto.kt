@@ -1,6 +1,6 @@
-package com.aps.mobile.model
+package com.aps.mobile.user.domain
 
-data class User(
+data class UserDto(
     var id: Long,
     var username: String,
     var email: String?,

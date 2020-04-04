@@ -1,7 +1,8 @@
-package com.aps.mobile.utils
+package com.aps.mobile.core
 
 import android.content.Context
 import com.aps.mobile.R
+import com.aps.mobile.security.interceptors.BasicAuthenticationInterceptor
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -46,15 +47,29 @@ object RetrofitProvider {
         }
     }
 
-    fun <T> createService(context: Context, service: Class<T>, client: OkHttpClient? = null): T {
-        if (client != null) {
-            this.client = client
-        }
+    fun <T> createService(context: Context, service: Class<T>): T {
         if (this.client == null) {
             throw IllegalStateException("Pass OkHttpClient in the first call of createService")
         }
         return getInstance(
             context
         ).create(service)
+    }
+
+    fun createInstance(context: Context) {
+        this.client = okHttpClient(context)
+        if (retrofit == null) {
+            getInstance(context)
+        }
+    }
+
+    private fun okHttpClient(context: Context): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(
+                BasicAuthenticationInterceptor(
+                    context
+                )
+            )
+            .build()
     }
 }

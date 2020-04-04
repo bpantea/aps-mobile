@@ -1,7 +1,6 @@
-package com.aps.mobile.model
+package com.aps.mobile.security.domain
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.aps.mobile.R
 
 data class LoginUser(
@@ -12,7 +11,7 @@ data class LoginUser(
 const val usernamePreferencesKey = "username"
 const val passwordPreferencesKey = "password"
 
-class LoginUserPersistence(private val context: Context) {
+class LoginUserPersistence(context: Context) {
     private val sharedPreferences = context.getSharedPreferences(
         context.getString(R.string.preference_file_key),
         Context.MODE_PRIVATE

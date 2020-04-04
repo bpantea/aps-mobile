@@ -1,15 +1,13 @@
 package com.aps.mobile
 
 import android.app.Application
-import com.aps.mobile.security.AuthenticationInit
-
+import com.aps.mobile.security.AuthenticationInitialization
+import com.aps.mobile.core.RetrofitProvider
 
 class ApsApplication : Application() {
-
     override fun onCreate() {
         super.onCreate()
-
-        val authentication = AuthenticationInit(this)
-        authentication.authenticationHandling()
+        RetrofitProvider.createInstance(this)
+        AuthenticationInitialization(this).authenticationHandling()
     }
 }

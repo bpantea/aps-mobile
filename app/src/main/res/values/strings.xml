@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">Automated Puzzle Solver</string>
+    <string name="api_server_staging">http://192.168.0.101:8080/</string>
     <string name="preference_file_key">com.aps.mobile.PREFERENCES</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Log in</string>
     <string name="logout">Log out</string>
+    <string name="email">Email address</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
+    <string name="matchingPassword">Matching password</string>
+    <string name="register">Register</string>
 </resources>
